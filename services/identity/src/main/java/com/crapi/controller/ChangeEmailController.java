@@ -49,7 +49,17 @@ public class ChangeEmailController {
     }
     return ResponseEntity.status(HttpStatus.OK).body(changeEmailResponse);
   }
-
+@PostMapping("/identity/api/v2/user/change-email") //remove this after test
+  public ResponseEntity<CRAPIResponse> changesEmail(
+      @Valid @RequestBody ChangeEmailForm changeEmailForm, HttpServletRequest request) {
+    CRAPIResponse changeEmailResponse = userService.changeEmailRequest(request, changeEmailForm);
+    if (changeEmailResponse != null && changeEmailResponse.getStatus() == 403) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body(changeEmailResponse);
+    } else if (changeEmailResponse != null && changeEmailResponse.getStatus() == 404) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(changeEmailResponse);
+    }
+    return ResponseEntity.status(HttpStatus.OK).body(changeEmailResponse);
+  }
   /**
    * @param changeEmailForm changeEmailForm contains old email and new email, with token, this
    *     function will verify email and token
