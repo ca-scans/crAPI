@@ -103,6 +103,18 @@ public class ProfileController {
       return ResponseEntity.status(HttpStatus.NO_CONTENT)
           .body(new CRAPIResponse(UserMessage.SORRY_DIDNT_GET_PROFILE));
   }
+   /////////////DELETE AFTER TEST
+   @PutMapping("/identity/api/v2/user/videos/{video_id}")
+  public ResponseEntity<?> updateProfileVideo(
+      @PathVariable("video_id") Long videoId,
+      @RequestBody VideoForm videoForm,
+      HttpServletRequest request) {
+    ProfileVideo profileVideo = profileService.updateProfileVideo(videoForm, request);
+    if (profileVideo != null) return ResponseEntity.status(HttpStatus.OK).body(profileVideo);
+    else
+      return ResponseEntity.status(HttpStatus.NO_CONTENT)
+          .body(new CRAPIResponse(UserMessage.SORRY_DIDNT_GET_PROFILE));
+  }
 
   /**
    * @param videoId
