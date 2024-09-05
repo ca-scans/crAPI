@@ -49,7 +49,18 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .body(new CRAPIResponse(UserMessage.EMAIL_NOT_REGISTERED, 404));
   }
-
+  /**
+   * DELETE AFTER TEST 
+   */
+ @GetMapping("/identity/api/v2/user/dashboard")
+  public ResponseEntity<?> dashboard(HttpServletRequest request) {
+    DashboardResponse userData = userService.getUserByRequestToken(request);
+    if (userData != null) {
+      return ResponseEntity.status(HttpStatus.OK).body(userData);
+    } else
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body(new CRAPIResponse(UserMessage.EMAIL_NOT_REGISTERED, 404));
+  }
   /**
    * @param loginForm contains email and updated password
    * @param request getting jwt token for user from request header
