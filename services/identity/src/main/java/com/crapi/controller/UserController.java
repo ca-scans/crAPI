@@ -77,4 +77,21 @@ public class UserController {
     }
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resetPasswordResponse);
   }
+  /**
+   * DELETE AFTER TEST
+   * @param loginForm contains email and updated password
+   * @param request getting jwt token for user from request header
+   * @return reset user password for the user. first verify token and then reset user password
+   */
+  @PostMapping("/identity/api/v2/user/reset-password")
+  public ResponseEntity<CRAPIResponse> resetPassword(
+      @RequestBody LoginForm loginForm, HttpServletRequest request)
+      throws UnsupportedEncodingException {
+
+    CRAPIResponse resetPasswordResponse = userService.resetPassword(loginForm, request);
+    if (resetPasswordResponse != null && resetPasswordResponse.getStatus() == 200) {
+      return ResponseEntity.ok().body(new CRAPIResponse(UserMessage.PASSWORD_GOT_RESET));
+    }
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resetPasswordResponse);
+  }
 }
