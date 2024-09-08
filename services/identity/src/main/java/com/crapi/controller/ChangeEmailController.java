@@ -38,7 +38,7 @@ public class ChangeEmailController {
    * @return first check email is already registered or not if it is there then return email already
    *     registered then try with new email.
    */
-  @PostMapping("/v2/user/change-email")
+  @PostMapping("/identity/api/v2/user/change-email")
   public ResponseEntity<CRAPIResponse> changesEmail(
       @Valid @RequestBody ChangeEmailForm changeEmailForm, HttpServletRequest request) {
     CRAPIResponse changeEmailResponse = userService.changeEmailRequest(request, changeEmailForm);
