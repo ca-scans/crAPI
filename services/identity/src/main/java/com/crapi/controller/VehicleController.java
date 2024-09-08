@@ -58,7 +58,7 @@ public class VehicleController {
    * @param request
    * @return send vehicle details to user by email address
    */
-  @PostMapping("/vehicle/resend_email")
+  @PostMapping("/identity/api/v2/vehicle/resend_email") //updated
   public ResponseEntity<CRAPIResponse> getVehicleDetails(HttpServletRequest request) {
     CRAPIResponse vehicleResponse = vehicleService.sendVehicleDetails(request);
     if (vehicleResponse != null && vehicleResponse.getStatus() == 200) {
@@ -72,7 +72,7 @@ public class VehicleController {
    * @param request
    * @return this api returns List of vehicle of user Dashboard Vehicle details fetch by this api
    */
-  @GetMapping("/vehicle/vehicles")
+  @GetMapping("/identity/api/v2/vehicle/vehicles")
   public ResponseEntity<?> getVehicle(HttpServletRequest request) {
     List<VehicleDetails> vehicleDetails = vehicleService.getVehicleDetails(request);
     for (VehicleDetails vehicleDetail : vehicleDetails) {
@@ -105,7 +105,7 @@ public class VehicleController {
    * @param carId
    * @return VehicleDetails on given car_id.
    */
-  @GetMapping("/vehicle/{carId}/location")
+  @GetMapping("/identity/api/v2/vehicle/{carId}/location")
   public ResponseEntity<?> getLocationBOLA(@PathVariable("carId") UUID carId) {
     VehicleLocationResponse vehicleDetails = vehicleService.getVehicleLocation(carId);
     if (vehicleDetails != null) return ResponseEntity.ok().body(vehicleDetails);
